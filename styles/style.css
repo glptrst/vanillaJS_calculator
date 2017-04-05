@@ -1,0 +1,37 @@
+html {
+    background-color: black;
+    text-align: center;
+}
+h1 {
+    color: white;
+}
+#calculatorScreen {
+    background-color: white;
+    color: black;
+    width: 300px;
+    height: 75px;
+    border-top-left-radius: 2em;
+    border-top-right-radius: 2em;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+}
+#calculatorBody{
+    background-color: grey;
+    width: 300px;
+    height: 280px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    border-bottom-left-radius: 2em;
+    border-bottom-right-radius: 2em;
+}
+.button{
+    background-color: red;
+    width: 50px;
+    height: 50px;
+    margin: 10px 10px 10px 14px;
+    float: left;
+    border-radius: 10px;
+}
