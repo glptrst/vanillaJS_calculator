@@ -8,7 +8,7 @@ h1 {
 #calculatorScreen {
     background-color: white;
     color: black;
-    width: 300px;
+    width: 350px;
     height: 75px;
     border-top-left-radius: 2em;
     border-top-right-radius: 2em;
@@ -18,8 +18,8 @@ h1 {
 }
 #calculatorBody{
     background-color: grey;
-    width: 300px;
-    height: 280px;
+    width: 350px;
+    height: 390px;
     margin-right: auto;
     margin-left: auto;
     padding-top: 20px;
@@ -29,7 +29,15 @@ h1 {
 }
 .button{
     background-color: red;
-    width: 50px;
+    width: 60px;
+    height: 60px;
+    margin: 10px 10px 10px 14px;
+    float: left;
+    border-radius: 10px;
+}
+.bigButton {
+    background-color: red;
+    width: 100px;
     height: 50px;
     margin: 10px 10px 10px 14px;
     float: left;
