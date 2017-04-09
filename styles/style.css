@@ -30,7 +30,7 @@ h1 {
 .button{
     background-color: red;
     width: 60px;
-    height: 60px;
+    height: 45px;
     margin: 10px 10px 10px 14px;
     float: left;
     border-radius: 10px;
@@ -38,7 +38,7 @@ h1 {
 .bigButton {
     background-color: red;
     width: 100px;
-    height: 50px;
+    height: 45px;
     margin: 10px 10px 10px 14px;
     float: left;
     border-radius: 10px;
