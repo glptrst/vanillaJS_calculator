@@ -13,18 +13,27 @@ window.onload = function () {
     }
     //manage input received
     function getValue(input) {
-        if (input === "=") {
+        if (input === "=") { //if it's the equal sign
             console.log("getting result...");
             getResult();
             console.log(totalString);
             update();
-        }
-        //if input is a number or a operator
-        if ( (numbers.includes(input) === true) ||  (operators.includes(input) === true) || input == ".") {
-            //update totalString
-            totalString +=  input;
-            //show into the screen
+        } else if (input == "AC"){ 
+            totalString = "0";
             update();
+        } else if (input === "Back") {
+            totalString = totalString.slice(0, totalString.length-1);
+            update();
+        }else if ( (numbers.includes(input) === true) ||  (operators.includes(input) === true) || input == ".") { //if it's a num or an operator
+            if (totalString.length === 1 && totalString[0] === "0") {
+                totalString = input;
+                update();
+            } else {
+                //update totalString
+                totalString +=  input;
+                //show into the screen
+                update();
+            }
         }
     }
     //call getValue with the right arg when a button is clicked

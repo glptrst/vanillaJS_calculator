@@ -10,22 +10,23 @@ h1 {
     color: black;
     width: 350px;
     height: 75px;
-    border-top-left-radius: 2em;
-    border-top-right-radius: 2em;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
     margin-right: auto;
     margin-left: auto;
     margin-top: 20px;
+    text-align: right;
 }
 #calculatorBody{
     background-color: grey;
     width: 350px;
-    height: 390px;
+    height: 310px;
     margin-right: auto;
     margin-left: auto;
     padding-top: 20px;
     padding-bottom: 30px;
-    border-bottom-left-radius: 2em;
-    border-bottom-right-radius: 2em;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
 .button{
     background-color: red;
@@ -42,4 +43,7 @@ h1 {
     margin: 10px 10px 10px 14px;
     float: left;
     border-radius: 10px;
+}
+#Back {
+    font-size: 20px;
 }
