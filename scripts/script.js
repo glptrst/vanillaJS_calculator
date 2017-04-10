@@ -1,7 +1,9 @@
 window.onload = function () {
-    var totalString = "";
+    var totalString = "0";
     var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
     var operators = ["/", "*", "+", "-"];
+    //flag to check if "=" has been the last input; If so the screen has to be cleared before inserting new characters.
+    var equalFlag = false;
     //get final result turning totalString into its evaluation
     function getResult() {
         totalString = eval(totalString);
@@ -14,6 +16,7 @@ window.onload = function () {
     //manage input received
     function getValue(input) {
         if (input === "=") { //if it's the equal sign
+            equalFlag = true;
             console.log("getting result...");
             getResult();
             console.log(totalString);
@@ -22,12 +25,17 @@ window.onload = function () {
             totalString = "0";
             update();
         } else if (input === "Back") {
-            totalString = totalString.slice(0, totalString.length-1);
-            update();
+            if (totalString === "0") {
+                ; //do nothing
+            } else {
+                totalString = totalString.slice(0, totalString.length-1);
+                update();
+            }
         }else if ( (numbers.includes(input) === true) ||  (operators.includes(input) === true) || input == ".") { //if it's a num or an operator
-            if (totalString.length === 1 && totalString[0] === "0") {
+            if (totalString === "0" || equalFlag === true) {
                 totalString = input;
                 update();
+                equalFlag = false;
             } else {
                 //update totalString
                 totalString +=  input;
