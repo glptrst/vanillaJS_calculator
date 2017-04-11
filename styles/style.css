@@ -10,14 +10,16 @@ h1 {
     color: black;
     width: 350px;
     height: 75px;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
     margin-right: auto;
     margin-left: auto;
     margin-top: 20px;
     text-align: right;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 #calculatorBody{
+    color: white;
+    font-size: 30px;
     background-color: grey;
     width: 350px;
     height: 310px;
@@ -25,8 +27,8 @@ h1 {
     margin-left: auto;
     padding-top: 20px;
     padding-bottom: 30px;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 .button{
     background-color: red;
@@ -44,6 +46,8 @@ h1 {
     float: left;
     border-radius: 10px;
 }
-#Back {
-    font-size: 20px;
+div#steps {
+    font-size: 50px;
+    padding: 5px 10px 5px 10px;
+    word-wrap: break-word;
 }
