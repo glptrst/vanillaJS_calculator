@@ -7,11 +7,12 @@ window.onload = function () {
     var equalFlag = false;
     //get final result turning totalString into its evaluation
     function getResult() {
-        totalString = eval(totalString);
+        totalString = String(eval(totalString));
     }
     //Update screen
     function update() {
         var screen = document.getElementById("steps");
+
         screen.innerHTML = totalString;
 
         //adapt font-size
@@ -31,6 +32,7 @@ window.onload = function () {
             console.log(totalString);
             update();
         } else if (input == "AC"){ 
+            equalFlag = false;
             totalString = "0";
             update();
         } else if (input === "CE") {
@@ -40,13 +42,29 @@ window.onload = function () {
                 totalString = totalString.slice(0, totalString.length-1);
                 update();
             }
-        }else if ( (numbers.includes(input) === true) ||  (operators.includes(input) === true) || input == ".") { //if it's a num or an operator
-            if (totalString === "0" || equalFlag === true) {
-                totalString = input;
+        }else if (input === "."){
+            //Puttin a dot after a dot or after an operator is not allowed
+            if ( (totalString[totalString.length-1] === ".") || (operators.includes(totalString[totalString.length-1]) === true) ) {
+                ;//do nothing
+            } else {
+                totalString += input; 
+                update();
+            }
+        }else if (numbers.includes(input) === true) { //if input is a num 
+            if (totalString === "0" || equalFlag === true) { //if the screen shows just one zero or the result of an operation
+                totalString = input;                         //clear the screen before pushing characters
                 update();
                 equalFlag = false;
             } else {
                 //update totalString
+                totalString +=  input;
+                //show into the screen
+                update();
+            }
+        } else if (operators.includes(input) === true) { //if input is an operator 
+            if ((operators.includes(totalString[totalString.length-1]) === true) || totalString[totalString.length-1] === "." || equalFlag === true) { //if last char is another operator or a dot or the screen is showing a result
+                ;//do nothing
+            } else {
                 totalString +=  input;
                 //show into the screen
                 update();
