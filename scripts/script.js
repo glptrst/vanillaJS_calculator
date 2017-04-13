@@ -7,7 +7,12 @@ window.onload = function () {
     var equalFlag = false;
     //get final result turning totalString into its evaluation
     function getResult() {
-        totalString = String(eval(totalString));
+        // old easy method
+        //totalString = String(eval(totalString));
+        
+        //without eval
+        //            I cast to string in order to resize
+        totalString = String(calculate(parseCalculationString(totalString)));
     }
     //Update screen
     function update() {
@@ -82,13 +87,62 @@ window.onload = function () {
             });
         }
     })();
-    
-    //rudimentary function to change size of character to make them not overflow the screen
-    function adaptFontSize() {
-        if (totalString.length > 10) {
-            var screen = document.getElementById("steps");
-            screen.setAttribute("font-size", "20px");
+   
+
+//----------------------------------------------------------------------------------------------   
+//Code to avoid using eval; taken from:
+//http://stackoverflow.com/questions/32292231/how-to-code-a-calculator-in-javascript-without-eval
+    function parseCalculationString(s) {
+    // --- Parse a calculation string into an array of numbers and operators
+    var calculation = [],
+        current = '';
+    for (var i = 0, ch; ch = s.charAt(i); i++) {
+        if ('^*/+-'.indexOf(ch) > -1) {
+            if (current == '' && ch == '-') {
+                current = '-';
+            } else {
+                calculation.push(new Decimal(current), ch);
+                current = '';
+            }
+        } else {
+            current += s.charAt(i);
         }
     }
+    if (current != '') {
+        calculation.push(new Decimal(current));
+    }
+    return calculation;
+}
+
+function calculate(calc) {
+    // --- Perform a calculation expressed as an array of operators and numbers
+    var ops = [{'^': (a, b) => a.pow(b)},
+    	{'*': (a, b) => a.mul(b), '/': (a, b) => a.div(b)},
+        {'+': (a, b) => a.add(b), '-': (a, b) => a.sub(b)}],
+        newCalc = [],
+        currentOp;
+    for (var i = 0; i < ops.length; i++) {
+        for (var j = 0; j < calc.length; j++) {
+            if (ops[i][calc[j]]) {
+                currentOp = ops[i][calc[j]];
+            } else if (currentOp) {
+                newCalc[newCalc.length - 1] = currentOp(newCalc[newCalc.length - 1], calc[j]);
+                currentOp = null;
+            } else {
+                newCalc.push(calc[j]);
+            }
+        }
+        calc = newCalc;
+        newCalc = [];
+    }
+    if (calc.length > 1) {
+        console.log('Error: unable to resolve calculation');
+        return calc;
+    } else {
+        return calc[0];
+    }
+}
+//end of code take from stackoverflow
+//---------------------------------------------------------------------------------------------
 
 };
