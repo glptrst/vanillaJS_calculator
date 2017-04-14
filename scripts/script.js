@@ -1,24 +1,24 @@
 "use strict";
 window.onload = function () {
+
     var totalString = "0";
+    var lastInput = "0";
+    var entryScreen = "0";
+
     var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
     var operators = ["/", "*", "+", "-"];
-    //flag to check if "=" has been the last input; If so the screen has to be cleared before inserting new characters.
-    var equalFlag = false;
-    //get final result turning totalString into its evaluation
+
+    //get final result turning totalString into its evaluation (without using eval)
     function getResult() {
-        // old easy method
-        //totalString = String(eval(totalString));
-        
-        //without eval
         //            I cast to string in order to resize
+        entryScreen = String(calculate(parseCalculationString(totalString)));
         totalString = String(calculate(parseCalculationString(totalString)));
     }
     //Update screen
     function update() {
+        //put totalString into screen
         var screen = document.getElementById("steps");
-
-        screen.innerHTML = totalString;
+        screen.innerHTML = entryScreen;
 
         //adapt font-size
         if (totalString.length <= 10)
@@ -28,56 +28,116 @@ window.onload = function () {
         else if (totalString.length > 75)
             screen.setAttribute("style", "font-size: 15px");
     }
-    //manage input received
+    // manage input received
     function getValue(input) {
-        if (input === "=") { //if it's the equal sign
-            equalFlag = true;
-            console.log("getting result...");
-            getResult();
-            console.log(totalString);
-            update();
-        } else if (input == "AC"){ 
-            equalFlag = false;
-            totalString = "0";
-            update();
-        } else if (input === "CE") {
-            if (totalString === "0") {
-                ; //do nothing
-            } else {
-                totalString = totalString.slice(0, totalString.length-1);
-                update();
-            }
-        }else if (input === "."){
-            //Puttin a dot after a dot or after an operator is not allowed
-            if ( (totalString[totalString.length-1] === ".") || (operators.includes(totalString[totalString.length-1]) === true) ) {
-                ;//do nothing
-            } else {
+        // if input is a number
+        if (numbers.includes(input) === true) { 
+            // if last input is a number or "."
+            if (numbers.includes(lastInput) === true || lastInput === ".") {
                 totalString += input; 
+                entryScreen += input;
+                lastInput = input;
                 update();
             }
-        }else if (numbers.includes(input) === true) { //if input is a num 
-            if (totalString === "0" || equalFlag === true) { //if the screen shows just one zero or the result of an operation
-                totalString = input;                         //clear the screen before pushing characters
-                update();
-                equalFlag = false;
-            } else {
-                //update totalString
-                totalString +=  input;
-                //show into the screen
+            // if last input is an operator
+            else if (operators.includes(lastInput) === true) {
+                totalString += input;
+                entryScreen = input;
+                lastInput = input;
                 update();
             }
-        } else if (operators.includes(input) === true) { //if input is an operator 
-            if ((operators.includes(totalString[totalString.length-1]) === true) || totalString[totalString.length-1] === "." || equalFlag === true) { //if last char is another operator or a dot or the screen is showing a result
-                ;//do nothing
-            } else {
-                totalString +=  input;
-                //show into the screen
+            // if last input was equal sign
+            else if (lastInput === "=") {
+                totalString = input; 
+                entryScreen = input;
+                lastInput = input;
                 update();
+            }
+            // if last input was AC
+            else if (lastInput === "AC") {
+                totalString += input; 
+                entryScreen += input;
+                lastInput = input;
+                update();
+            }
+            // if last input was CE
+            else if (lastInput === "CE") {
+                //TODO
             }
         }
+        // if input is an operator
+        else if (operators.includes(input) === true) {
+            // if last input was a number or "."
+            if (numbers.includes(lastInput) === true || lastInput === ".") {
+                totalString += input;
+                lastInput = input;
+                update();
+            }
+            // if last input was an operator
+            else if (operators.includes(lastInput) === true) {
+                ;//do nothing
+            }
+            // if last input was equal sign
+            else if (lastInput === "=") {
+                //use last results as first entry
+                totalString += input;
+                lastInput = input;
+            }
+            // if last input was AC
+            else if (lastInput === "AC") {
+                totalString += input;
+                lastInput = input;
+                update();
+            }
+            // if last input was CE
+            else if (lastInput === "CE") {
+                //TODO
+            }
+        }
+        // if input is equal sign
+        else if (input === "=") {
+            // if last input was a number
+            if (numbers.includes(lastInput) === true) {
+                getResult();
+                lastInput = input;
+                update();
+            }
+            //if last it input is "."
+            else if (lastInput === ".") {
+                ;//do nothing
+            }
+            // if last input was an operator
+            else if (operators.includes(lastInput) === true) {
+                ;//do  nothing
+            }
+            // if last input was equal sign
+            else if (lastInput === "=") {
+                ;//do nothing
+            }
+            // if last input was AC
+            else if (lastInput === "AC") {
+                ;//do nothing
+            }
+            // if last input was CE
+            else if (lastInput === "CE") {
+                //TODO
+            }
+        }
+        // if input is AC
+        else if (input === "AC") {
+            totalString = "0";
+            entryScreen = "0";
+            lastInput = input;
+            update();
+        }
+        // if input is CE
+        else if (input === "CE") {
+            // TODO 
+        }
     }
+
     //call getValue with the right arg when a button is clicked
-    //(I use an IIFE to not pollute the scope with i)
+    //(I use an IIFE to not pollute the scope)
     (function () {    
         var buttons = document.getElementsByClassName("button");
         for (var i = 0; i < buttons.length; i++) {
