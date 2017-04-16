@@ -80,6 +80,7 @@ window.onload = function () {
                 totalString += input;
                 entryScreen += input;
                 lastInput = input;
+                update();
             }
             //if last it input is "."
             else if (lastInput === ".") {
