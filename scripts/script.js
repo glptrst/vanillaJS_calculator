@@ -34,10 +34,18 @@ window.onload = function () {
         if (numbers.includes(input) === true) { 
             // if last input is a number or "."
             if (numbers.includes(lastInput) === true || lastInput === ".") {
-                totalString += input; 
-                entryScreen += input;
-                lastInput = input;
-                update();
+                //overwrite the first zero if it is the first operation
+                if (totalString === "0") {
+                    totalString = input; 
+                    entryScreen = input;
+                    lastInput = input;
+                    update();
+                } else {
+                    totalString += input; 
+                    entryScreen += input;
+                    lastInput = input;
+                    update();
+                }
             }
             // if last input is an operator
             else if (operators.includes(lastInput) === true) {
@@ -55,6 +63,40 @@ window.onload = function () {
             }
             // if last input was AC
             else if (lastInput === "AC") {
+                totalString = input; 
+                entryScreen = input;
+                lastInput = input;
+                update();
+            }
+            // if last input was CE
+            else if (lastInput === "CE") {
+                //TODO
+            }
+        }
+        // if input is "."
+        else if (input === ".") {
+            // if last input was a number
+            if (numbers.includes(lastInput) === true) {
+                totalString += input;
+                entryScreen += input;
+                lastInput = input;
+            }
+            //if last it input is "."
+            else if (lastInput === ".") {
+                ;//do nothing
+            }
+            // if last input was an operator
+            else if (operators.includes(lastInput) === true) {
+                ;//do  nothing
+            }
+            // if last input was equal sign
+            else if (lastInput === "=") {
+                ;//do nothing
+            }
+            // if last input was AC
+            else if (lastInput === "AC") {
+                //in this case totalString and entryScren would be equal to "0"
+                //so we put the dot after the 0
                 totalString += input; 
                 entryScreen += input;
                 lastInput = input;
