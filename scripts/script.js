@@ -110,11 +110,18 @@ window.onload = function () {
         }
         // if input is an operator
         else if (operators.includes(input) === true) {
-            // if last input was a number or "."
-            if (numbers.includes(lastInput) === true || lastInput === ".") {
+            // if last input was a number
+            if (numbers.includes(lastInput) === true) {
+                //show result of previous calculation
+                getResult(); 
+                
                 totalString += input;
                 lastInput = input;
                 update();
+            }
+            // if last input was "."
+            if (lastInput === ".") {
+                ;//do nothing
             }
             // if last input was an operator
             else if (operators.includes(lastInput) === true) {
