@@ -16,7 +16,7 @@ window.onload = function () {
     }
     //Update screen
     function update() {
-        //put totalString into screen
+        //put entryScreen into screen
         var screen = document.getElementById("steps");
         screen.innerHTML = entryScreen;
 

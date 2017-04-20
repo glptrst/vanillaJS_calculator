@@ -30,6 +30,14 @@ h1 {
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
+
+
+    /*
+http://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css
+      */
+ 
+
+
 .button{
     background-color: red;
     width: 60px;
@@ -37,6 +45,17 @@ h1 {
     margin: 10px 10px 10px 14px;
     float: left;
     border-radius: 10px;
+    
+   -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    cursor: pointer;
+    cursor: hand;
+
 }
 .bigButton {
     background-color: red;
