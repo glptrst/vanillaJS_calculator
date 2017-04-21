@@ -182,7 +182,50 @@ window.onload = function () {
         }
         // if input is CE
         else if (input === "CE") {
-            // TODO 
+            // if last input was a number
+            if (numbers.includes(lastInput) === true) {
+                // turn screen into "0"
+                entryScreen = "0";
+                update();
+
+                // cut last entry from totalString
+                var indexes = operators.map(function(operator) {
+                    return totalString.lastIndexOf(operator);
+                });
+                var lastOperatorIndex = Math.max.apply(null, indexes);
+                totalString = totalString.slice(0, lastOperatorIndex+1);
+                console.log(totalString);
+
+                //set lastInput to last char in the totalString
+                lastInput = totalString[totalString.length-1];
+                
+            }
+            //if last it input is "."
+            else if (lastInput === ".") {
+                // TODO
+                // same as above 
+            }
+            // if last input was an operator
+            else if (operators.includes(lastInput) === true) {
+                ;//do  nothing
+
+                // I could allow to remove the last operator in the totalString
+            }
+            // if last input was equal sign
+            else if (lastInput === "=") {
+                ;//do nothing
+            }
+            // if last input was AC
+            else if (lastInput === "AC") {
+                ;//do nothing
+            }
+            // if last input was CE
+            else if (lastInput === "CE") {
+                ;//do nothing
+
+                //maybe I'm not going to register "CE" in lastInput so may want to remove
+                //this piece of code when I'm done
+            }
         }
     }
 
