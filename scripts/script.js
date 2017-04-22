@@ -21,11 +21,11 @@ window.onload = function () {
         screen.innerHTML = entryScreen;
 
         //adapt font-size
-        if (totalString.length <= 10)
+        if (entryScreen.length <= 10)
             screen.setAttribute("style", "font-size: 50px");
-        else if (totalString.length > 10 && totalString.length <= 75)
+        else if (entryScreen.length > 10 && entryScreen.length <= 75)
             screen.setAttribute("style", "font-size: 20px");
-        else if (totalString.length > 75)
+        else if (entryScreen.length > 75)
             screen.setAttribute("style", "font-size: 15px");
     }
     // manage input received
