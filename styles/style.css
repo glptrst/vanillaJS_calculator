@@ -68,5 +68,5 @@ http://stackoverflow.com/questions/826782/how-to-disable-text-selection-highligh
 div#steps {
     font-size: 50px;
     padding: 5px 10px 5px 10px;
-    word-wrap: break-word;
+/*    word-wrap: break-word;*/
 }

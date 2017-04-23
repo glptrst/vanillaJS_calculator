@@ -8,6 +8,9 @@ window.onload = function () {
     var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
     var operators = ["/", "*", "+", "-"];
 
+    var screenWidth = 350; //from ../styles/style.css
+    var entryScreenTextSize = 50; //from ../styles/style.css
+
     //get final result turning totalString into its evaluation (without using eval)
     function getResult() {
         //            I cast to string in order to resize
@@ -20,14 +23,42 @@ window.onload = function () {
         var screen = document.getElementById("steps");
         screen.innerHTML = entryScreen;
 
-        //adapt font-size
-        if (entryScreen.length <= 10)
-            screen.setAttribute("style", "font-size: 50px");
-        else if (entryScreen.length > 10 && entryScreen.length <= 75)
-            screen.setAttribute("style", "font-size: 20px");
-        else if (entryScreen.length > 75)
-            screen.setAttribute("style", "font-size: 15px");
+        //Resize entryScreen if it's too big for the screen
+        
+        //first rough way developed
+        //adapt font-size (first version)
+        //if (entryScreen.length <= 10)
+        //    screen.setAttribute("style", "font-size: 50px");
+        //else if (entryScreen.length > 10 && entryScreen.length <= 75)
+        //    screen.setAttribute("style", "font-size: 20px");
+        //else if (entryScreen.length > 75)
+        //    screen.setAttribute("style", "font-size: 15px");
+
+        // Attempt of implementing a better way of resizing the text
+        // The insight comes from: http://stackoverflow.com/questions/16209153/how-to-get-the-position-and-size-of-a-html-text-node-using-javascript  
+        var range = document.createRange(); 
+        var textNode = screen.firstChild;
+        range.selectNodeContents(textNode);
+        var rects = range.getClientRects(); // Range.getClientRects is still an experimental API though. Alternatives?
+        var entryScreenWidth = rects[0].width;
+        console.log("the width of the text in the screen is: " + entryScreenWidth + "px");
+        console.log("while the screen width is " + screenWidth + "px");
+
+        if (entryScreenWidth > screenWidth-10) {
+            while (entryScreenWidth > screenWidth-10) {
+                entryScreenTextSize -= 2; 
+                screen.setAttribute("style", "font-size: " + entryScreenTextSize + "px");
+                range.selectNodeContents(textNode);
+                rects = range.getClientRects();
+                entryScreenWidth = rects[0].width;
+            }
+        } else if (entryScreenWidth < screenWidth-10) {
+            entryScreenTextSize = 50;
+            screen.setAttribute("style", "font-size: " + entryScreenTextSize + "px");
+        }
+
     }
+
     // manage input received
     function getValue(input) {
         // if input is a number
@@ -68,10 +99,6 @@ window.onload = function () {
                 lastInput = input;
                 update();
             }
-            // if last input was CE
-            else if (lastInput === "CE") {
-                //TODO
-            }
         }
         // if input is "."
         else if (input === ".") {
@@ -102,10 +129,6 @@ window.onload = function () {
                 entryScreen += input;
                 lastInput = input;
                 update();
-            }
-            // if last input was CE
-            else if (lastInput === "CE") {
-                //TODO
             }
         }
         // if input is an operator
@@ -139,10 +162,6 @@ window.onload = function () {
                 lastInput = input;
                 update();
             }
-            // if last input was CE
-            else if (lastInput === "CE") {
-                //TODO
-            }
         }
         // if input is equal sign
         else if (input === "=") {
@@ -167,10 +186,6 @@ window.onload = function () {
             // if last input was AC
             else if (lastInput === "AC") {
                 ;//do nothing
-            }
-            // if last input was CE
-            else if (lastInput === "CE") {
-                //TODO
             }
         }
         // if input is AC
@@ -218,13 +233,6 @@ window.onload = function () {
             // if last input was AC
             else if (lastInput === "AC") {
                 ;//do nothing
-            }
-            // if last input was CE
-            else if (lastInput === "CE") {
-                ;//do nothing
-
-                //maybe I'm not going to register "CE" in lastInput so may want to remove
-                //this piece of code when I'm done
             }
         }
     }
