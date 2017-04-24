@@ -11,6 +11,8 @@ window.onload = function () {
     var screenWidth = 350; //from ../styles/style.css
     var entryScreenTextSize = 50; //from ../styles/style.css
 
+    var screen = document.getElementById("steps");
+
     //get final result turning totalString into its evaluation (without using eval)
     function getResult() {
         //            I cast to string in order to resize
@@ -20,7 +22,6 @@ window.onload = function () {
     //Update screen
     function update() {
         //put entryScreen into screen
-        var screen = document.getElementById("steps");
         screen.innerHTML = entryScreen;
 
         //Resize entryScreen if it's too big for the screen
@@ -52,10 +53,10 @@ window.onload = function () {
                 rects = range.getClientRects();
                 entryScreenWidth = rects[0].width;
             }
-        } else if (entryScreenWidth < screenWidth-10) {
-            entryScreenTextSize = 50;
-            screen.setAttribute("style", "font-size: " + entryScreenTextSize + "px");
-        }
+        }// else if (entryScreenWidth <= screenWidth-10) {    //For some reason this code doesn't always work 
+         //   entryScreenTextSize = 50;
+         //   screen.setAttribute("style", "font-size: " + entryScreenTextSize + "px");
+        //}
 
     }
 
@@ -82,6 +83,9 @@ window.onload = function () {
             else if (operators.includes(lastInput) === true) {
                 totalString += input;
                 entryScreen = input;
+                //bring to normal font-size (since we are starting again from one digit)
+                entryScreenTextSize = 50;
+                screen.setAttribute("style", "font-size: " + entryScreenTextSize + "px");
                 lastInput = input;
                 update();
             }
@@ -191,6 +195,9 @@ window.onload = function () {
         // if input is AC
         else if (input === "AC") {
             totalString = "0";
+            //bring to normal font size
+            entryScreenTextSize = 50;
+            screen.setAttribute("style", "font-size: " + entryScreenTextSize + "px");
             entryScreen = "0";
             lastInput = input;
             update();
@@ -199,7 +206,9 @@ window.onload = function () {
         else if (input === "CE") {
             // if last input was a number
             if (numbers.includes(lastInput) === true) {
-                // turn screen into "0"
+                // turn screen into "0" and bring to normal font-size
+                entryScreenTextSize = 50;
+                screen.setAttribute("style", "font-size: " + entryScreenTextSize + "px");
                 entryScreen = "0";
                 update();
 
