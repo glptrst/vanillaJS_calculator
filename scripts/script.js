@@ -257,6 +257,11 @@ window.onload = function () {
             });
         }
     })();
+    //Do the same when a key is pressed
+    window.addEventListener("keydown", function(event) {
+        console.log(event);
+        getValue(event.key);
+    });
    
 
 //----------------------------------------------------------------------------------------------   
