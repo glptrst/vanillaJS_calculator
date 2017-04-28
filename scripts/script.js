@@ -259,10 +259,23 @@ window.onload = function () {
     })();
     //Do the same when a key is pressed
     window.addEventListener("keydown", function(event) {
-        console.log(event);
-        getValue(event.key);
+        if (event.key === "a") {
+            event.preventDefault(); //prevent the key to do something else
+            getValue("AC");
+        } else if (event.key === "e") {
+            event.preventDefault();
+            getValue("CE"); 
+        }else if (event.key === '/') { 
+            event.preventDefault(); 
+            getValue(event.key);
+        } else if (event.key === "Enter") { // Make Enter act as '='
+            event.preventDefault();
+            getValue("=");
+        } else {
+            console.log(event);
+            getValue(event.key);
+        }
     });
-   
 
 //----------------------------------------------------------------------------------------------   
 //Code to avoid using eval; taken from:
