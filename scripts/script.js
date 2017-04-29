@@ -24,18 +24,8 @@ window.onload = function () {
         //put entryScreen into screen
         screen.innerHTML = entryScreen;
 
-        //Resize entryScreen if it's too big for the screen
-        
-        //first rough way developed
-        //adapt font-size (first version)
-        //if (entryScreen.length <= 10)
-        //    screen.setAttribute("style", "font-size: 50px");
-        //else if (entryScreen.length > 10 && entryScreen.length <= 75)
-        //    screen.setAttribute("style", "font-size: 20px");
-        //else if (entryScreen.length > 75)
-        //    screen.setAttribute("style", "font-size: 15px");
-
-        // Attempt of implementing a better way of resizing the text
+        // Resize entryScreen if it's too big for the screen
+        // To do this I use the Range Object 
         // The insight comes from: http://stackoverflow.com/questions/16209153/how-to-get-the-position-and-size-of-a-html-text-node-using-javascript  
         var range = document.createRange(); 
         var textNode = screen.firstChild;
@@ -53,11 +43,12 @@ window.onload = function () {
                 rects = range.getClientRects();
                 entryScreenWidth = rects[0].width;
             }
-        }// else if (entryScreenWidth <= screenWidth-10) {    //For some reason this code doesn't always work 
-         //   entryScreenTextSize = 50;
-         //   screen.setAttribute("style", "font-size: " + entryScreenTextSize + "px");
-        //}
+        }
 
+        //for debugging purposes
+        console.log('entryScreen = ' + entryScreen);
+        console.log( 'totalString = ' + totalString);
+        console.log( 'lastInput = ' + lastInput);
     }
 
     // manage input received
@@ -205,7 +196,8 @@ window.onload = function () {
         // if input is CE
         else if (input === "CE") {
             // if last input was a number
-            if (numbers.includes(lastInput) === true) {
+            if (numbers.includes(lastInput) === true || lastInput === '.') {
+
                 // turn screen into "0" and bring to normal font-size
                 entryScreenTextSize = 50;
                 screen.setAttribute("style", "font-size: " + entryScreenTextSize + "px");
@@ -223,11 +215,6 @@ window.onload = function () {
                 //set lastInput to last char in the totalString
                 lastInput = totalString[totalString.length-1];
                 
-            }
-            //if last it input is "."
-            else if (lastInput === ".") {
-                // TODO
-                // same as above 
             }
             // if last input was an operator
             else if (operators.includes(lastInput) === true) {
