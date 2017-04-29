@@ -1,6 +1,5 @@
 "use strict";
 window.onload = function () {
-
     var totalString = '0';
     var lastInput = '0';
     var entryScreen = '0';
@@ -32,8 +31,9 @@ window.onload = function () {
         range.selectNodeContents(textNode);
         var rects = range.getClientRects(); // Range.getClientRects is still an experimental API though. Alternatives?
         var entryScreenWidth = rects[0].width;
-        console.log('the width of the text in the screen is: ' + entryScreenWidth + 'px');
-        console.log('while the screen width is ' + screenWidth + 'px');
+        //for testing
+        //console.log('the width of the text in the screen is: ' + entryScreenWidth + 'px');
+        //console.log('while the screen width is ' + screenWidth + 'px');
 
         if (entryScreenWidth > screenWidth-10) {
             while (entryScreenWidth > screenWidth-10) {
@@ -44,11 +44,10 @@ window.onload = function () {
                 entryScreenWidth = rects[0].width;
             }
         }
-
         //for debugging purposes
-        console.log('entryScreen = ' + entryScreen);
-        console.log( 'totalString = ' + totalString);
-        console.log( 'lastInput = ' + lastInput);
+        //console.log('entryScreen = ' + entryScreen);
+        //console.log( 'totalString = ' + totalString);
+        //console.log( 'lastInput = ' + lastInput);
     }
 
     // manage input received
@@ -208,13 +207,16 @@ window.onload = function () {
                 var indexes = operators.map(function(operator) {
                     return totalString.lastIndexOf(operator);
                 });
-                var lastOperatorIndex = Math.max.apply(null, indexes);
-                totalString = totalString.slice(0, lastOperatorIndex+1);
-                console.log(totalString);
-
-                //set lastInput to last char in the totalString
-                lastInput = totalString[totalString.length-1];
-                
+                if (indexes[0] === -1 && indexes[1] === -1 && indexes[2] === -1 && indexes[3] === -1) { // if there are no operators (it is the first entry)
+                   totalString = '0'
+                   lastInput = '0';
+                } else {
+                    var lastOperatorIndex = Math.max.apply(null, indexes);
+                    totalString = totalString.slice(0, lastOperatorIndex+1);
+                    console.log(totalString);
+                    //set lastInput to last char in the totalString
+                    lastInput = totalString[totalString.length-1];
+                } 
             }
             // if last input was an operator
             else if (operators.includes(lastInput) === true) {
