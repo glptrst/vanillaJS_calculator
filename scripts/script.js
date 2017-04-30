@@ -98,10 +98,14 @@ window.onload = function () {
         else if (input === '.') {
             // if last input was a number
             if (numbers.includes(lastInput) === true) {
-                totalString += input;
-                entryScreen += input;
-                lastInput = input;
-                update();
+                if (entryScreen.indexOf('.') !== -1) { //if '.' has already been used in the current entry
+                    ;// do nothing
+                } else {
+                    totalString += input;
+                    entryScreen += input;
+                    lastInput = input;
+                    update();
+                }
             }
             //if last it input is '.'
             else if (lastInput === '.') {
@@ -261,7 +265,6 @@ window.onload = function () {
             event.preventDefault();
             getValue('=');
         } else {
-            console.log(event);
             getValue(event.key);
         }
     });
