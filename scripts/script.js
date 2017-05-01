@@ -1,26 +1,25 @@
 "use strict";
 window.onload = function () {
-    var totalString = '0';
+    var totalString = '0'; // Total chain of operations to be calculated
     var lastInput = '0';
-    var entryScreen = '0';
+    var entryScreen = '0'; // What has to appear onto the screen
 
     var numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     var operators = ['/', '*', '+', '-'];
 
-    var screenWidth = 350; //from ../styles/style.css
-    var entryScreenTextSize = 50; //from ../styles/style.css
+    var screenWidth = 350; //standard width. (check ../styles/style.css)
+    var entryScreenTextSize = 50; //standard font size. (check ../styles/style.css)
 
     var screen = document.getElementById('steps');
 
-    //get final result turning totalString into its evaluation (without using eval)
+    //Get final result turning totalString into its evaluation (without using eval)
     function getResult() {
-        //            I cast to string in order to resize
-        entryScreen = String(calculate(parseCalculationString(totalString)));
+        //            I cast to String in order to resize
         totalString = String(calculate(parseCalculationString(totalString)));
+        entryScreen = totalString;
     }
-    //Update screen
+    //Update screen with the value of entryScreen and resize text if necessary
     function update() {
-        //put entryScreen into screen
         screen.innerHTML = entryScreen;
 
         // Resize entryScreen if it's too big for the screen
@@ -31,9 +30,6 @@ window.onload = function () {
         range.selectNodeContents(textNode);
         var rects = range.getClientRects(); // Range.getClientRects is still an experimental API though. Alternatives?
         var entryScreenWidth = rects[0].width;
-        //for testing
-        //console.log('the width of the text in the screen is: ' + entryScreenWidth + 'px');
-        //console.log('while the screen width is ' + screenWidth + 'px');
 
         if (entryScreenWidth > screenWidth-10) {
             while (entryScreenWidth > screenWidth-10) {
@@ -44,19 +40,15 @@ window.onload = function () {
                 entryScreenWidth = rects[0].width;
             }
         }
-        //for debugging purposes
-        //console.log('entryScreen = ' + entryScreen);
-        //console.log( 'totalString = ' + totalString);
-        //console.log( 'lastInput = ' + lastInput);
     }
 
-    // manage input received
+    // Manage input received
     function getValue(input) {
-        // if input is a number
+        // If input is a number
         if (numbers.includes(input) === true) { 
-            // if last input is a number or "."
+            // If last input is a number or '.'
             if (numbers.includes(lastInput) === true || lastInput === '.') {
-                //overwrite the first zero if it is the first operation
+                // If it is the first operation overwrite the first zero 
                 if (totalString === '0') {
                     totalString = input; 
                     entryScreen = input;
@@ -69,24 +61,24 @@ window.onload = function () {
                     update();
                 }
             }
-            // if last input is an operator
+            // If last input is an operator
             else if (operators.includes(lastInput) === true) {
                 totalString += input;
                 entryScreen = input;
-                //bring to normal font-size (since we are starting again from one digit)
+                // bring to normal font-size (since we are starting again from one digit)
                 entryScreenTextSize = 50;
                 screen.setAttribute('style', 'font-size: ' + entryScreenTextSize + 'px');
                 lastInput = input;
                 update();
             }
-            // if last input was equal sign
+            // If last input was equal sign
             else if (lastInput === '=') {
                 totalString = input; 
                 entryScreen = input;
                 lastInput = input;
                 update();
             }
-            // if last input was AC
+            // If last input was AC
             else if (lastInput === 'AC') {
                 totalString = input; 
                 entryScreen = input;
@@ -94,12 +86,12 @@ window.onload = function () {
                 update();
             }
         }
-        // if input is "."
+        // If input is '.'
         else if (input === '.') {
-            // if last input was a number
+            // If last input was a number
             if (numbers.includes(lastInput) === true) {
-                if (entryScreen.indexOf('.') !== -1) { //if '.' has already been used in the current entry
-                    ;// do nothing
+                if (entryScreen.indexOf('.') !== -1) { // If '.' has already been used in the current entry
+                    ;// Do nothing
                 } else {
                     totalString += input;
                     entryScreen += input;
@@ -107,107 +99,106 @@ window.onload = function () {
                     update();
                 }
             }
-            //if last it input is '.'
+            // If last it input is '.'
             else if (lastInput === '.') {
-                ;//do nothing
+                ;// Do nothing
             }
-            // if last input was an operator
+            // If last input was an operator
             else if (operators.includes(lastInput) === true) {
-                ;//do  nothing
+                ;// Do  nothing
             }
-            // if last input was equal sign
+            // If last input was equal sign
             else if (lastInput === '=') {
-                ;//do nothing
+                ;// Do nothing
             }
-            // if last input was AC
+            // If last input was AC
             else if (lastInput === 'AC') {
-                //in this case totalString and entryScren would be equal to "0"
-                //so we put the dot after the 0
+                // In this case totalString and entryScren would be equal to "0"
+                // so we put the dot after the 0
                 totalString += input; 
                 entryScreen += input;
                 lastInput = input;
                 update();
             }
         }
-        // if input is an operator
+        // If input is an operator
         else if (operators.includes(input) === true) {
-            // if last input was a number
+            // If last input was a number
             if (numbers.includes(lastInput) === true) {
-                //show result of previous calculation
+                // Show result of previous calculation (if there is only a number then itself will be the result)
                 getResult(); 
-                
                 totalString += input;
                 lastInput = input;
                 update();
             }
-            // if last input was '.'
+            // If last input was '.'
             if (lastInput === '.') {
-                ;//do nothing
+                ; // Do nothing
             }
-            // if last input was an operator
+            // If last input was an operator
             else if (operators.includes(lastInput) === true) {
-                ;//do nothing
+                ; // Do nothing
             }
-            // if last input was equal sign
+            // If last input was equal sign
             else if (lastInput === '=') {
-                //use last results as first entry
+                // Use last result as first entry
                 totalString += input;
                 lastInput = input;
             }
-            // if last input was AC
+            // If last input was AC
             else if (lastInput === 'AC') {
                 totalString += input;
                 lastInput = input;
                 update();
             }
         }
-        // if input is equal sign
+        // If input is equal sign
         else if (input === '=') {
-            // if last input was a number
+            // If last input was a number
             if (numbers.includes(lastInput) === true) {
                 getResult();
                 lastInput = input;
                 update();
             }
-            //if last it input is '.'
+            // If last it input is '.'
             else if (lastInput === '.') {
-                ;//do nothing
+                ; // Do nothing
             }
             // if last input was an operator
             else if (operators.includes(lastInput) === true) {
-                ;//do  nothing
+                ; // Do  nothing
             }
             // if last input was equal sign
             else if (lastInput === '=') {
-                ;//do nothing
+                ; // Do nothing
             }
             // if last input was AC
             else if (lastInput === 'AC') {
-                ;//do nothing
+                ; //Do nothing
             }
         }
-        // if input is AC
+        // If input is AC
         else if (input === 'AC') {
             totalString = '0';
-            //bring to normal font size
+            // Bring to normal font size
             entryScreenTextSize = 50;
             screen.setAttribute('style', 'font-size: ' + entryScreenTextSize + 'px');
             entryScreen = '0';
             lastInput = input;
             update();
         }
-        // if input is CE
+        // If input is CE
         else if (input === 'CE') {
-            // if last input was a number
+            // If last input was a number
             if (numbers.includes(lastInput) === true || lastInput === '.') {
 
-                // turn screen into "0" and bring to normal font-size
+                // Curn screen into '0' and bring to normal font-size
                 entryScreenTextSize = 50;
                 screen.setAttribute('style', 'font-size: ' + entryScreenTextSize + 'px');
                 entryScreen = '0';
                 update();
 
-                // cut last entry from totalString
+                // Cut last entry from totalString (if it is the first entry just bring everything to '0')
                 var indexes = operators.map(function(operator) {
                     return totalString.lastIndexOf(operator);
                 });
@@ -217,35 +208,30 @@ window.onload = function () {
                 } else {
                     var lastOperatorIndex = Math.max.apply(null, indexes);
                     totalString = totalString.slice(0, lastOperatorIndex+1);
-                    console.log(totalString);
-                    //set lastInput to last char in the totalString
+                    // Set lastInput to last char in the totalString
                     lastInput = totalString[totalString.length-1];
                 } 
             }
-            // if last input was an operator
+            // If last input was an operator
             else if (operators.includes(lastInput) === true) {
-                ;//do  nothing
-
-                // I could allow to remove the last operator in the totalString
+                ;//Do  nothing
             }
-            // if last input was equal sign
+            // If last input was equal sign
             else if (lastInput === '=') {
-                ;//do nothing
+                ;//Do nothing
             }
-            // if last input was AC
+            // If last input was AC
             else if (lastInput === 'AC') {
-                ;//do nothing
+                ;//Do nothing
             }
         }
     }
 
-    //call getValue with the right arg when a button is clicked
-    //(I use an IIFE to not pollute the scope)
+    //Call getValue with the right arg when a button is clicked
     (function () {    
         var buttons = document.getElementsByClassName('button');
         for (var i = 0; i < buttons.length; i++) {
             buttons[i].addEventListener('click', function whenclicked(){
-                console.log(this.id);
                 getValue(this.id);
             });
         }
@@ -269,59 +255,59 @@ window.onload = function () {
         }
     });
 //----------------------------------------------------------------------------------------------   
-//Code to avoid using eval; taken from:
-//http://stackoverflow.com/questions/32292231/how-to-code-a-calculator-in-javascript-without-eval
+    //Code to avoid using eval; taken from:
+    //http://stackoverflow.com/questions/32292231/how-to-code-a-calculator-in-javascript-without-eval
     function parseCalculationString(s) {
-    // --- Parse a calculation string into an array of numbers and operators
-    var calculation = [],
-        current = '';
-    for (var i = 0, ch; ch = s.charAt(i); i++) {
-        if ('^*/+-'.indexOf(ch) > -1) {
-            if (current == '' && ch == '-') {
-                current = '-';
+        // --- Parse a calculation string into an array of numbers and operators
+        var calculation = [],
+            current = '';
+        for (var i = 0, ch; ch = s.charAt(i); i++) {
+            if ('^*/+-'.indexOf(ch) > -1) {
+                if (current == '' && ch == '-') {
+                    current = '-';
+                } else {
+                    calculation.push(new Decimal(current), ch);
+                    current = '';
+                }
             } else {
-                calculation.push(new Decimal(current), ch);
-                current = '';
+                current += s.charAt(i);
             }
-        } else {
-            current += s.charAt(i);
         }
+        if (current != '') {
+            calculation.push(new Decimal(current));
+        }
+        return calculation;
     }
-    if (current != '') {
-        calculation.push(new Decimal(current));
-    }
-    return calculation;
-}
 
-function calculate(calc) {
-    // --- Perform a calculation expressed as an array of operators and numbers
-    var ops = [{'^': (a, b) => a.pow(b)},
-    	{'*': (a, b) => a.mul(b), '/': (a, b) => a.div(b)},
-        {'+': (a, b) => a.add(b), '-': (a, b) => a.sub(b)}],
-        newCalc = [],
-        currentOp;
-    for (var i = 0; i < ops.length; i++) {
-        for (var j = 0; j < calc.length; j++) {
-            if (ops[i][calc[j]]) {
-                currentOp = ops[i][calc[j]];
-            } else if (currentOp) {
-                newCalc[newCalc.length - 1] = currentOp(newCalc[newCalc.length - 1], calc[j]);
-                currentOp = null;
-            } else {
-                newCalc.push(calc[j]);
+    function calculate(calc) {
+        // --- Perform a calculation expressed as an array of operators and numbers
+        var ops = [{'^': (a, b) => a.pow(b)},
+            {'*': (a, b) => a.mul(b), '/': (a, b) => a.div(b)},
+            {'+': (a, b) => a.add(b), '-': (a, b) => a.sub(b)}],
+            newCalc = [],
+            currentOp;
+        for (var i = 0; i < ops.length; i++) {
+            for (var j = 0; j < calc.length; j++) {
+                if (ops[i][calc[j]]) {
+                    currentOp = ops[i][calc[j]];
+                } else if (currentOp) {
+                    newCalc[newCalc.length - 1] = currentOp(newCalc[newCalc.length - 1], calc[j]);
+                    currentOp = null;
+                } else {
+                    newCalc.push(calc[j]);
+                }
             }
+            calc = newCalc;
+            newCalc = [];
         }
-        calc = newCalc;
-        newCalc = [];
+        if (calc.length > 1) {
+            console.log('Error: unable to resolve calculation');
+            return calc;
+        } else {
+            return calc[0];
+        }
     }
-    if (calc.length > 1) {
-        console.log('Error: unable to resolve calculation');
-        return calc;
-    } else {
-        return calc[0];
-    }
-}
-//end of code take from stackoverflow
+//End of code taken from stackoverflow
 //---------------------------------------------------------------------------------------------
 
 };
