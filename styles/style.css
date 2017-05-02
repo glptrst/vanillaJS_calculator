@@ -70,3 +70,12 @@ div#steps {
     padding: 5px 10px 5px 10px;
 /*    word-wrap: break-word;*/
 }
+#keyboardShortcuts {
+    background-color: grey;
+    width: 350px;
+    margin: 0 auto;
+    border-radius: 20px;
+}
+#keyboardShortcuts ul {
+    text-align: left;
+}
