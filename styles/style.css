@@ -31,13 +31,9 @@ h1 {
     border-bottom-right-radius: 20px;
 }
 
-
     /*
 http://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css
       */
- 
-
-
 .button{
     background-color: red;
     width: 60px;
@@ -71,11 +67,8 @@ div#steps {
 /*    word-wrap: break-word;*/
 }
 #keyboardShortcuts {
-    background-color: grey;
-    width: 350px;
-    margin: 0 auto;
-    border-radius: 20px;
-}
-#keyboardShortcuts ul {
-    text-align: left;
+    float: left;
+    margin-left: 80px;
+    color: black;
+    font-size: 14px;
 }
