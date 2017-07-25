@@ -1,4 +1,4 @@
-# vanillaJS_calculator
+# vanillaJS_calculator -- freecodecamp project
 
 A calculator built in JavaScript
 
