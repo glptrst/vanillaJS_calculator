@@ -1,0 +1,95 @@
+
+
+
+
+
+/*     OLD CSS
+
+html {
+    background-color: black;
+    text-align: center;
+}
+h1 {
+    color: white;
+}
+#calculatorScreen {
+    background-color: white;
+    color: black;
+    width: 350px;
+    height: 75px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    text-align: right;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+#calculatorBody{
+    color: white;
+    font-size: 30px;
+    background-color: grey;
+    width: 350px;
+    height: 310px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+*/
+
+
+    /*
+http://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css
+   */
+
+/*
+.button{
+    background-color: red;
+    width: 60px;
+    height: 45px;
+    margin: 10px 10px 10px 14px;
+    float: left;
+    border-radius: 10px;
+    
+   -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    cursor: pointer;
+    cursor: hand;
+
+}
+.bigButton {
+    background-color: red;
+    width: 100px;
+    height: 45px;
+    margin: 10px 10px 10px 14px;
+    float: left;
+    border-radius: 10px;
+}
+div#steps {
+    font-size: 50px;
+    padding: 5px 10px 5px 10px;
+
+*/
+
+
+/*    word-wrap: break-word;*/
+
+/*
+
+}
+#keyboardShortcuts {
+    float: left;
+    margin-left: 80px;
+    color: black;
+    font-size: 14px;
+}
+
+*/
