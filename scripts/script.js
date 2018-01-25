@@ -203,7 +203,7 @@ window.onload = function () {
                     return totalString.lastIndexOf(operator);
                 });
                 if (indexes[0] === -1 && indexes[1] === -1 && indexes[2] === -1 && indexes[3] === -1) { // if there are no operators (it is the first entry)
-                   totalString = '0'
+                   totalString = '0';
                    lastInput = '0';
                 } else {
                     var lastOperatorIndex = Math.max.apply(null, indexes);
