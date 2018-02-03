@@ -18,13 +18,17 @@ window.onload = function () {
         totalString = String(calculate(parseCalculationString(totalString)));
         entryScreen = totalString;
     }
+
     //Update screen with the value of entryScreen and resize text if necessary
     function update() {
         screen.innerHTML = entryScreen;
+	resizeEntryScreen();
+    }
 
-        // Resize entryScreen if it's too big for the screen
-        // To do this I use the Range Object 
-        // The insight comes from: http://stackoverflow.com/questions/16209153/how-to-get-the-position-and-size-of-a-html-text-node-using-javascript  
+    // Resize entryScreen if it's too big for the screen
+    // To do this I use the Range Object 
+    // The insight comes from: http://stackoverflow.com/questions/16209153/how-to-get-the-position-and-size-of-a-html-text-node-using-javascript  
+    function resizeEntryScreen () {
         var range = document.createRange(); 
         var textNode = screen.firstChild;
         range.selectNodeContents(textNode);
@@ -40,7 +44,7 @@ window.onload = function () {
                 entryScreenWidth = rects[0].width;
             }
         }
-    }
+    };
 
     // Manage input received
     function getValue(input) {
