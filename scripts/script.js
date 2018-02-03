@@ -1,8 +1,8 @@
 "use strict";
 window.onload = function () {
     var totalString = '0'; // Total chain of operations to be calculated
-    var lastInput = '0';
-    var entryScreen = '0'; // What has to appear onto the screen
+    var lastInput = '0'; // Store last input given by the user
+    var entryScreen = '0'; // What must appear onto the screen
 
     var numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     var operators = ['/', '*', '+', '-'];
@@ -189,7 +189,7 @@ window.onload = function () {
         }
         // If input is CE
         else if (input === 'CE') {
-            // If last input was a number
+            // If last input was a number or '.'
             if (numbers.includes(lastInput) === true || lastInput === '.') {
 
                 // Curn screen into '0' and bring to normal font-size
