@@ -46,7 +46,9 @@ window.onload = function () {
         }
     };
 
-    // Manage input received
+    // Manage input received: update totalString (if needed), update
+    // entryScreen (if needed), store input in lastInput for future
+    // reference (if needed), call update() (if needed)
     function getValue(input) {
         // If input is a number
         if (numbers.includes(input) === true) { 
@@ -117,7 +119,7 @@ window.onload = function () {
             }
             // If last input was AC
             else if (lastInput === 'AC') {
-                // In this case totalString and entryScren would be equal to "0"
+                // In this case totalString and entryScreen would be equal to "0"
                 // so we put the dot after the 0
                 totalString += input; 
                 entryScreen += input;
